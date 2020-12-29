@@ -1,0 +1,693 @@
+:root {
+    /*PLACEMENT*/
+    --top-initial: 100px;
+    --top-final: 28px;
+    --left-initial: 20px;
+    --left-final: 100px;
+    /*SIZES*/
+    /*Original shape sizes*/
+    --primary-circle-diameter: 89px;
+    --primary-circle-width: 89px;
+    --primary-circle-height: 89px;
+    /*third shape sizes - tertiary plus tertiary minus stroke width, approx*/
+    --secondary-circle-width: 68px;
+    --secondary-circle-height: 68px;
+    --final-diameter: 100px;
+    --tertiary-circle-width: 35px;
+    --tertiary-circle-height: 35px;
+    --fourth-circle-diameter: 45px;
+    --inner-circle-width: 80%;
+    --inner-circle-height: 80%;
+    --inner-circle-diameter-primary: 73px;
+    --stroke-width: 8px;
+/*    Primary - half of half-circle = 89-24 = 65 */
+    --descender-length: 65px;
+/*    Primary minus tertiary */
+    --secondary-descender-length: 54px;
+    --small-elem-diameter: 15px;
+    /*Translations*/
+    --translate-small: 27px;
+    /*COLORS*/
+    --main-element-color: black;
+    --main-background-color: white;
+    /*    --main-background-color: #00FFCC;*/
+    /*TIMING*/
+    --interval: 1s;
+    /*ARRANGEMENT*/
+    --inner-shape-zindex: 10;
+    --bar-zindex: 2003;
+    /* SHAPES */
+    --triangle-line-clip-path: polygon(50% 0, 55% 10%, 10% 100%, 0 100%);
+    --flipped-hollow-triangle-clip-path: polygon(0 0, 100% 0, 50% 100%, 44% 88%, 84% 10%, 6% 10%);
+    --flipped-prehollow-triangle-clip-path: polygon(0 0, 100% 0, 50% 100%, 44% 88%, 84% 10%, 6% 10%);
+    --hollow-triangle-clip-path: polygon(0 0, 100% 0, 50% 100%, 44% 88%, 84% 10%, 6% 10%);
+    --prehollow-triangle-clip-path: polygon(0 0, 100% 0, 50% 100%, 44% 88%, 84% 10%, 6% 10%);
+    /*IMAGES*/
+    --background-image-one: url(images/galaxy1.jpg);
+    --background-image-two: url(images/galaxy2.jpg);
+}
+
+
+
+html {
+    box-sizing: border-box;
+    box-sizing: border-box;
+}
+header {
+    display: grid;
+    position: relative;
+    width: 100%;
+    grid-template-columns: 25% 50% 25%;
+    margin-bottom: 10px;
+    z-index: 3000;
+    font-size: 1.1em;
+}
+body {
+    background-color: var(--main-background-color);
+    font-family: 'Crimson Text', serif;
+/*    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+    font-size: 1.2em;
+    line-height: 1.42857143;
+    color: #333;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+    min-width: 440px;    
+}
+
+
+
+.astro-text {
+    font-size: 0.7em;
+    text-align: justify;
+}
+
+/* Heading of star sign description*/
+.astro-text h4 {
+    text-align: center;
+}
+
+#all-signs {
+    width: 100%;
+    height: 89px;
+    display: grid;
+    grid-template-columns: repeat(12, 7%);
+    grid-column-gap: 1%;
+    grid-template-rows: 60px;
+    justify-content: center;
+}
+
+#all-signs img {
+/*    object-fit: contain;*/
+    height: 100%;
+    display: block;
+    justify-self: center;
+}
+
+/*MODAL (W3 SCHOOLS)*/
+
+
+/* The Modal (background) */
+
+.modal {
+    font-size: 0.7em;
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 99999999;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    padding: 10px 25px 10px 25px;
+    border: 1px solid #888;
+    width: 80%;
+    /* Could be more or less, depending on screen size */
+    border-radius: 5px;
+}
+
+/* The Close Button */
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+#animate-button {
+    border-radius: 3px;
+    border-color: #AAA;
+}
+#box {
+    position: relative;
+    display: block;
+    background: var(--main-background-color);
+    width: 400px;
+    height: 140px;
+/*    background-color: antiquewhite;*/
+    align-self: center;
+}
+#changed-box {
+    position: relative;
+    display: block;
+    background: var(--main-background-color);
+    width: 400px;
+    height: 140px;
+/*    background-color: aquamarine;*/
+    align-self: start;
+}
+#container {
+    /*    position: absolute;*/
+    display: grid;
+    justify-items: center;
+    width: 100%;
+    height: 280px;
+    background-color: var(--main-background-color);
+/*    background-color: azure;*/
+}
+#button-refresh {
+    border-radius: 5px;
+    background-color: var(--main-background-color);
+    color: black;
+    height: 2em;
+}
+.primary-shape {
+    display: grid;
+    position: absolute;
+    width: var(--primary-circle-width);
+    height: var(--primary-circle-height);
+    background-size: 89px 89px;
+}
+
+.background-image-one {
+    background: var(--background-image-one);
+    background-size: 89px 89px;
+}
+
+.background-image-two {
+    background: var(--background-image-two);
+    background-size: 89px 89px;
+}
+
+
+.inner-shape {
+    margin: auto;
+    display: block;
+    background-color: var(--main-background-color);
+    z-index: var(--inner-shape-zindex);
+}
+.circle {
+    -webkit-clip-path: circle(50% at 50% 50%);
+    clip-path: circle(50% at 50% 50%);
+}
+.triangle {
+    -webkit-clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+.position-one {
+    top: 25px; 
+    left: 90px;
+}
+/*400-2*89=222   */
+.position-two {
+    top: 25px; 
+    left: 225px;
+}
+
+/*USE*/
+
+.grow-shape {
+    animation-duration: var(--interval);
+    animation-name: grow;
+    animation-fill-mode: forwards;
+}
+
+/*USE*/
+
+.grow-inner-shape {
+    animation-duration: var(--interval);
+    animation-name: growInnerShape;
+    animation-fill-mode: forwards;
+}
+
+/*USE*/
+
+.inner-circle-custom {
+    animation-duration: var(--interval);
+    animation-name: growInnerCircle;
+    animation-fill-mode: forwards;
+}
+.inner-circle-primary {
+    animation-duration: var(--interval);
+    animation-name: growInnerCirclePrimary;
+    animation-fill-mode: forwards;
+}
+.inner-triangle {
+    grid-row-end: -1;
+    background-color: var(--main-background-color);
+    margin: auto;
+    display: block;
+    -webkit-clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    animation-duration: var(--interval);
+    animation-name: growInnerCircle;
+    animation-fill-mode: forwards;
+}
+.bar {
+    position: absolute;
+    width: var(--stroke-width);
+    height: var(--stroke-width);
+    z-index: var(--bar-zindex);
+    animation-duration: var(--interval);
+    animation-name: fadeIn;
+    animation-fill-mode: forwards;
+    background: var(--background-image-one);
+    background-size: 89px 89px;
+}
+.mask {
+    position: absolute;
+    background-color: var(--main-background-color);
+    animation-duration: var(--interval);
+    animation-name: fadeIn;
+    animation-fill-mode: forwards;
+}
+
+
+/*@MEDIA*/
+
+@media (max-width: 1000px) {
+
+    
+    #all-signs {
+    grid-template-columns: repeat(6, 1fr);
+    grid-column-gap: 5%;
+    grid-template-rows: repeat(2, 60px);
+    grid-row-gap: 20px;
+    justify-content: center;
+}
+    
+    
+}
+
+@media (max-width: 650px) {
+    
+    header {
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 40px 40px;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+    
+    #site-name{
+        
+    }
+    
+    #control-box{
+        display: grid;
+        grid-row-start: 2;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        
+        
+    }
+    
+    #help{
+        grid-row-start: 1;
+        grid-column-start: 2;
+        
+    }
+
+    
+    #all-signs {
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 5%;
+    grid-template-rows: repeat(3, 60px);
+    grid-row-gap: 20px;
+    justify-content: center;
+}
+    
+    
+}
+
+
+
+
+
+
+
+
+
+/*ANIMATIONS*/
+.slide-vertical {
+    animation-duration: var(--interval);
+    animation-name: slideShapeVertical;
+    animation-fill-mode: forwards;
+}
+.slide-horizontal {
+    animation-duration: var(--interval);
+    animation-name: slideShapeHorizontal;
+    animation-fill-mode: forwards;
+}
+.rotate-ninety {
+    animation-duration: var(--interval);
+    animation-name: rotateNinetyClockwise;
+    animation-fill-mode: forwards;
+}
+.shrink-circle {
+    animation-duration: var(--interval);
+    animation-name: shrinkCircle;
+    animation-fill-mode: forwards;
+}
+.shrink-circle-secondary {
+    animation-duration: var(--interval);
+    animation-name: shrinkCircleSecondary;
+    animation-fill-mode: forwards;
+}
+.shrink-elem-four {
+    animation-duration: var(--interval);
+    animation-name: shrinkElemFour;
+    animation-fill-mode: forwards;
+}
+.half-elem {
+        animation-duration: var(--interval);
+    animation-name: halfCircle;
+    animation-fill-mode: forwards;
+    
+}
+
+.grow-circle {
+    animation-duration: var(--interval);
+    animation-name: growCircle;
+    animation-fill-mode: forwards;
+}
+.grow-descender {
+    animation-duration: var(--interval);
+    animation-name: growDescender;
+    animation-fill-mode: forwards;
+}
+.grow-secondary-descender {
+    animation-duration: var(--interval);
+    animation-name: growSecondaryDescender;
+    animation-fill-mode: forwards;
+}
+.fade-out {
+    animation-duration: var(--interval);
+    animation-name: fadeOut;
+    animation-fill-mode: forwards;
+}
+.fade-in {
+    animation-duration: var(--interval);
+    animation-name: fadeIn;
+    animation-fill-mode: forwards;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+@keyframes shrinkCircle {
+    from {
+        width: var(--primary-circle-width);
+        height: var(--primary-circle-height);
+    }
+    to {
+        width: var(--tertiary-circle-width);
+        height: var(--tertiary-circle-height);
+    }
+}
+@keyframes halfCircle {
+    from {
+        width: var(--primary-circle-width);
+        height: var(--primary-circle-height);
+    }
+    to {
+        width: var(--fourth-circle-diameter);
+        height: var(--fourth-circle-diameter);
+    }
+}
+@keyframes shrinkCircleSecondary {
+    from {
+        width: var(--primary-circle-width);
+        height: var(--primary-circle-height);
+    }
+    to {
+        width: var(--secondary-circle-width);
+        height: var(--secondary-circle-height);
+    }
+}
+
+
+
+@keyframes shrinkElemFour {
+    from {
+        width: var(--primary-circle-width);
+        height: var(--primary-circle-height);
+    }
+    to {
+        width: var(--small-elem-diameter);
+        height: var(--small-elem-diameter);
+    }
+}
+@keyframes growCircle {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(2.515);
+    }
+}
+@keyframes grow {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+@keyframes growInnerCircle {
+    from {
+        width: 0%;
+        height: 0%
+    }
+    to {
+        width: var(--inner-circle-width);
+        height: var(--inner-circle-height);
+    }
+}
+@keyframes growInnerCirclePrimary {
+    from {
+        width: 0%;
+        height: 0%
+    }
+    to {
+        width: var(inner-circle-diameter-primary);
+        height: var(inner-circle-diameter-primary);
+    }
+}
+@keyframes growDescender {
+    from {
+        height: 0px;
+    }
+    to {
+        height: var(--descender-length);
+    }
+}
+@keyframes growSecondaryDescender {
+    from {
+        height: 0px;
+    }
+    to {
+        height: var(--secondary-descender-length);
+    }
+}
+@keyframes slideShapeVertical {
+    from {
+        top: var(--top-initial);
+    }
+    to {
+        top: var(--top-final);
+    }
+}
+@keyframes slideShapeHorizontal {
+    from {
+        left: var(--left-initial);
+    }
+    to {
+        left: var(--left-final);
+    }
+}
+@keyframes translateShape {
+    from {
+        top: var(--top-initial);
+    }
+    to {
+        top: var(--top-final);
+    }
+}
+@keyframes rotateNinetyClockwise {
+    from {}
+    to {
+        -ms-transform: rotate(26.5deg);
+        /* IE 9 */
+        -webkit-transform: rotate(26.5deg);
+        /* Safari */
+        transform: rotate(26.5deg);
+        /* Standard syntax */
+    }
+}
+.move-elem {
+    animation-duration: var(--interval);
+    animation-name: moveElem;
+    animation-fill-mode: forwards;
+}
+@keyframes moveElem {
+    from {}
+    to {
+        left: var(--left-final);
+        top: var(--top-final);
+    }
+}
+.move-left {
+    animation-duration: var(--interval);
+    animation-name: moveLeft;
+    animation-fill-mode: forwards;
+}
+@keyframes moveLeft {
+    from {
+        left: var(--left-initial);
+    }
+    to {}
+}
+.float-up {
+    animation-duration: var(--interval);
+    animation-name: floatUp;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+}
+@keyframes floatUp {
+    from {
+        margin-bottom: 0px;
+    }
+    to {
+        margin-bottom: 150px;
+    }
+}
+.move-down {
+    animation-duration: var(--interval);
+    animation-name: moveDown;
+    animation-fill-mode: forwards;
+}
+@keyframes moveDown {
+    from {
+        top: var(--top-initial);
+    }
+    to {}
+}
+.shrink-elem-arbitrary {
+    animation-duration: var(--interval);
+    animation-name: shrinkElemArbitrary;
+    animation-fill-mode: forwards;
+}
+@keyframes shrinkElemArbitrary {
+    from {}
+    to {
+        width: var(--final-diameter);
+        height: var(--final-diameter);
+    }
+}
+.triangle-line {
+    animation-duration: var(--interval);
+    animation-name: triangleLine;
+    animation-fill-mode: forwards;
+}
+@keyframes triangleLine {
+    from {
+        -webkit-clip-path: polygon(50% 0, 100% 100%, 100% 100%, 0 100%);
+        clip-path: polygon(50% 0, 100% 100%, 100% 100%, 0 100%);
+    }
+    to {
+        -webkit-clip-path: var(--triangle-line-clip-path);
+        clip-path: var(--triangle-line-clip-path);
+    }
+}
+.flip-triangle {
+    animation-duration: var(--interval);
+    animation-name: flipTriangle;
+    animation-fill-mode: forwards;
+}
+@keyframes flipTriangle {
+    from {
+        -webkit-clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+    to {
+        -webkit-clip-path: polygon(50% 100%, 0 0, 100% 0);
+        clip-path: polygon(50% 100%, 0 0, 100% 0);
+    }
+}
+.hollow-flipped-triangle {
+    animation-duration: var(--interval);
+    animation-name: hollowFlippedTriangle;
+    animation-fill-mode: forwards;
+}
+@keyframes hollowFlippedTriangle {
+    from {
+        -webkit-clip-path: var(--flipped-prehollow-triangle-clip-path);
+        clip-path: var(--flipped-prehollow-triangle-clip-path);
+    }
+    to {
+        -webkit-clip-path: var(--flipped-hollow-triangle-clip-path);
+        clip-path: var(--flipped-hollow-triangle-clip-path);
+    }
+}
+.hollow-triangle {
+    animation-duration: var(--interval);
+    animation-name: hollowTriangle;
+    animation-fill-mode: forwards;
+}
+@keyframes hollowTriangle {
+    from {
+        -webkit-clip-path: var(--prehollow-triangle-clip-path);
+        clip-path: var(--prehollow-triangle-clip-path);
+    }
+    to {
+        -webkit-clip-path: var(--hollow-triangle-clip-path);
+        clip-path: var(--hollow-triangle-clip-path);
+    }
+}
